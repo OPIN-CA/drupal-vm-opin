@@ -1,0 +1,514 @@
+---
+api: 2
+
+# Basic Drush Make file for Drupal. Be sure to update the drupal_major_version
+# variable inside config.yml if you change the major version in this file.
+
+# Set contrib directory.
+defaults:
+  projects:
+    subdir: "contrib"
+
+# Drupal core (major version, e.g. 6.x, 7.x, 8.x).
+core: "7.x"
+
+projects:
+
+  drupal:
+    type: "core"
+    version: "7.37"
+
+  ace_editor: "1.x-dev"
+  acquia_connector: "2.15"
+  acquia_purge: "1.1"
+  admin_menu: "3.x-dev"
+  admin_language: "1.x-dev"
+  admin_views: "1.4"
+  apachesolr: "1.7"
+  apachesolr_multilingual: "1.2"
+  apachesolr_confgen: "1.1"
+  bean: "1.7"
+  better_exposed_filters: "3.x-dev"
+  betterlogin: "1.3"
+  breakpoints: "1.3"
+  bundle_copy: "1.1"   
+  calendar: "3.5"
+  clientside_validation: "1.41"
+  coder: "2.5"
+  context: "3.6"
+  ctools: "1.7"
+  facetapi: "1.5"
+  date: "2.8"
+  devel: "1.5"
+  diff: "3.2"
+  dragndrop_uploads: "1.x-dev"
+  elements: "1.4"
+  email: "1.3"
+  entity: "1.6"
+  entity_translation: "1.x-dev"
+  entityreference: "1.1"
+  expire: "2.0-rc4"
+  facetapi_bonus: "1.1"
+  facetapi_i18n: "1.0-beta2"
+  fapi_validation: "2.2"
+  features: "2.5"
+  features_translations: "1.0"
+  fences: "1.0"
+  field_collection: "1.x-dev"
+  field_formatter_settings: "1.1"
+  field_group: "1.4"
+  field_validation: "2.4"
+  file_entity: "2.x-dev"
+  file_lock: "2.x-dev"
+  flag: "3.6"  
+  geofield: "2.3"
+  geophp: "1.7"
+  globalredirect: "1.5"
+  google_image_sitemap: "1.2"
+  google_analytics: "2.1"
+  googlenews: "1.6"
+  hacked: "2.x-dev"
+  hierarchical_select: "3.x-dev"
+  honeypot: "1.17"
+  html5_tools: "1.2"
+  i18n: "1.13"  
+  i18nviews: "3.x-dev"
+  inline_entity_form: "1.5"
+  jquery_update: "2.4"
+  l10n_update: "2.0"
+  ldap: "2.x-dev"
+  leaflet: "1.1"
+  leaflet_more_maps: "1.11"
+  libraries: "2.2"
+  link: "1.3"
+  maxlength: "3.x-dev"
+  media: "2.x-dev"
+  memcache: "1.5"
+  menu_attributes: "1.x-dev"
+  menu_block: "2.5"
+  menu_import: "1.7"
+  menu_position: "1.1"
+  metatag: "1.4"
+  migrate: "2.7"
+  migrate_d2d: "2.1"
+  modernizr: "3.2"
+  module_filter: "2.0"
+  multiupload_filefield_widget: "1.13"
+  multiupload_imagefield_widget: "1.3"
+  navbar: "1.6"
+  page_title: "2.7"  
+  pa11y_integration: "1.0"
+  panelizer: "3.1"
+  panels: "3.4"
+  password_policy: "1.11"
+  pathauto: "1.2"
+  picture: "2.9"
+  pm_existing_pages: "1.4"
+  querypath: "2.1"
+  redirect: "1.x-dev"
+  references_dialog: "1.x-dev"
+  rules: "2.9"
+  scheduler: "1.3"
+  search404: "1.3"
+  seckit: "1.9"
+  security_review: "1.2"  
+  semantic_fields: "1.x-dev"
+  semanticviews: "1.x-dev"
+  services: "3.12"
+  site_audit: "1.13"
+  site_verify: "1.1"
+  smtp: "1.2"
+  strongarm: "2.0"
+  taxonomy_csv: "5.10"
+  title: "1.x-dev"
+  token: "1.6"
+  translation_helpers: "1.0"
+  user_import: "2.3"
+  username_enumeration_prevention: "1.0"
+  userpoints: "1.1"
+  variable: "2.5"
+  varnish: "1.x-dev"
+  views: "3.11"
+  views_autocomplete_filters: "1.2"
+  views_bulk_operations: "3.2"
+  views_fieldset: "1.0"
+  views_infinite_scroll: "1.1"
+  views_datasource: "1.x-dev"
+  views_litepager: "3.0"
+  views_record_count: "1.2"
+  workbench: "1.2"
+  workbench_access: "1.2"
+  workbench_moderation: "1.4"
+  wysiwyg: "2.2"
+  xmlsitemap: "2.2"
+  w3c_validator: "1.0"
+
+  opin_administration:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-administration.git"
+      branch: "master"
+
+  opin_authentication:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-authentication.git"
+      branch: "master"
+
+  opin_calendar:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-calendar.git"
+      branch: "master"
+
+  opin_core_bean:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-bean.git"
+      branch: "master"
+
+  opin_core_chaos_tools:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-chaos-tools.git"
+      branch: "master"
+
+  opin_core_context:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-context.git"
+      branch: "master"
+
+  opin_core_features:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-features.git"
+      branch: "master"
+
+  opin_core_flag:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-flag.git"
+      branch: "master"
+
+  opin_core_rules:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-rules.git"
+      branch: "master"
+
+  opin_core_strongarm:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-strongarm.git"
+      branch: "master"
+
+  opin_core_testing:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-testing.git"
+      branch: "master"
+
+  opin_core_variable:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-variable.git"
+      branch: "master"
+
+  opin_core_views:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-core-views.git"
+      branch: "master"
+
+  opin_date:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-date.git"
+      branch: "master"
+
+  opin_development:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-development.git"
+      branch: "master"
+
+  opin_email:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-email.git"
+      branch: "master"
+
+  opin_feeds:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-feeds.git"
+      branch: "master"
+
+  opin_fields:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-fields.git"
+      branch: "master"
+
+  opin_file_image:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-file-image.git"
+      branch: "master"
+
+  opin_forms:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-forms.git"
+      branch: "master"
+
+  opin_front_end_admin:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-front-end-admin.git"
+      branch: "master"
+
+  opin_front_admin_us:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-front-end-ux.git"
+      branch: "master"
+
+  opin_libraries:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-libraries.git"
+      branch: "master"
+
+  opin_mapping:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-mapping.git"
+      branch: "master"
+
+  opin_media:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-media.git"
+      branch: "master"
+
+  opin_menu:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-menu.git"
+      branch: "master"
+
+  opin_migration:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-migration.git"
+      branch: "master"
+
+  opin_multilingual:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-multilingual.git"
+      branch: "master"
+
+  opin_reference:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-reference.git"
+      branch: "master"
+
+  opin_reports:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-reports.git"
+      branch: "master"
+
+  opin_search:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-search.git"
+      branch: "master"
+
+  opin_security:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-security.git"
+      branch: "master"
+
+  opin_seo:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-seo.git"
+      branch: "master"
+
+  opin_theming:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-theming.git"
+      branch: "master"
+
+  opin_toolbar:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-toolbar.git"
+      branch: "master"
+
+  opin_user:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-user.git"
+      branch: "master"
+
+  opin_workflow:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-workflow.git"
+      branch: "master"
+
+  opin_wysiwyg:
+    type: module
+    subdir: custom
+    download:
+      type: "git"
+      url: "git@bitbucket.org:OPINCHECK/opin-wysiwyg.git"
+      branch: "master"
+    
+libraries:
+    
+  plupload:    
+    download:
+      type: "git"
+      url: "https://github.com/moxiecode/plupload.git"
+      tag: "v1.5.8"
+    destination: libraries
+    directory_name: plupload
+
+  backbone:
+    download:
+      type: "git"
+      url: "https://github.com/jashkenas/backbone.git"
+      tag: "1.1.2"
+    destination: libraries
+    directory_name: backbone
+    
+  querypath:
+    download:
+      type: "git"
+      url: "https://github.com/technosophos/querypath.git"
+      tag: "3.0.3"
+    destination: libraries
+    directory_name: querypath
+    
+  ace:
+    download:
+      type: "git"
+      url: "https://github.com/ajaxorg/ace.git"
+      tag: "v1.1.01"
+    destination: libraries
+    directory_name: ace
+    
+  leaflet:
+    download:
+      type: "git"
+      url: "https://github.com/Leaflet/Leaflet.git"
+      tag: "v0.7.3"
+    destination: libraries
+    directory_name: leaflet
+    
+  ckeditor:
+    download:
+      type: "git"
+      url: "https://github.com/ckeditor/ckeditor-releases.git"
+      tag: "4.4.7"
+    destination: libraries
+    directory_name: ckeditor
+    
+  modernizr:
+    download:
+      type: "git"
+      url: "https://github.com/Modernizr/Modernizr.git"
+      tag: "v2.8.3"
+    destination: libraries
+    directory_name: modernizr
+    
+  underscore:
+    download:
+      type: "git"
+      url: "https://github.com/jashkenas/underscore.git"
+      tag: "1.8.3"   
+    destination: libraries
+    directory_name: underscore

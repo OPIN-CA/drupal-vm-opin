@@ -1,0 +1,17 @@
+---
+- name: Copy Varnish default.vcl
+  template:
+    src: "templates/default.vcl"
+    dest: "/etc/varnish/default.vcl"
+  sudo: yes
+  notify: restart varnish
+
+- name: Set backend host IP in Varnish configuration
+  command: "sed -i 's/vagrant_ip/{{ vagrant_ip }}/' /etc/varnish/default.vcl"
+  sudo: yes
+  notify: restart varnish
+
+- name: Set backend port in Varnish configuration
+  command: "sed -i 's/apache_listen_port/{{ apache_listen_port }}/' /etc/varnish/default.vcl"
+  sudo: yes
+  notify: restart varnish

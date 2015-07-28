@@ -1,0 +1,70 @@
+---
+- name: Check if Drupal is already set up.
+  stat: "path={{ drupal_core_path }}/index.php"
+  register: drupal_site
+
+- name: Clone Drupal from github.
+  command: "git clone git@github.com:OPIN-CA/checkpoint.git {{ drupal_core_path }}"
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+  
+- name: Rename origin to upstream.
+  command: "git --git-dir={{ drupal_core_path }}/.git --work-tree={{ drupal_core_path }} remote rename origin upstream"
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+  
+- name: Reset the new origin.
+  command: "git --git-dir={{ drupal_core_path }}/.git --work-tree={{ drupal_core_path }} remote add origin git@github.com:OPIN-CA/{{ github_repo_name }}"
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+  
+- name: Push up changes to new origin fork; Ready for development.
+  command: "git --git-dir={{ drupal_core_path }}/.git --work-tree={{ drupal_core_path }} push -u origin master"
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+  
+- name: Install Drupal (standard profile) with drush.
+  command: >
+    drush si {{ drupal_install_profile | default('standard') }} -y
+    --site-name="{{ drupal_site_name }}"
+    --account-name={{ drupal_account_name }}
+    --account-pass={{ drupal_account_pass }}
+    --db-url=mysql://{{ drupal_mysql_user }}:{{ drupal_mysql_password }}@localhost/{{ mysql_databases[0].name }}
+    chdir={{ drupal_core_path }}
+  notify: restart webserver
+  when: drupal_site.stat.exists == false
+  sudo: no
+  
+- name: Disable modules with drush.
+  command: >
+    drush dis -y {{ drupal_disable_modules | join(" ") }}
+    chdir={{ drupal_core_path }}  
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+
+- name: Install modules with drush.
+  command: >
+    drush en -y {{ drupal_enable_modules | join(" ") }}
+    chdir={{ drupal_core_path }}  
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes  
+  sudo: no
+
+- name: Add vagrant as Apache owner
+  command: "sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=vagrant/' /etc/apache2/envvars"
+  notify: restart webserver
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes
+  sudo: yes
+
+- name: Add vagrant as Apache group
+  command: "sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=dialout/' /etc/apache2/envvars"
+  notify: restart webserver
+  when: drupal_site.stat.exists == false
+  ignore_errors: yes
+  sudo: yes

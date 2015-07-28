@@ -1,0 +1,194 @@
+---
+# Vagrant hostname and IP configuration.
+vagrant_hostname: local.drupal.dev
+vagrant_ip: 10.10.10.10
+vagrant_user: vagrant
+
+# A list of synced folders  - with the keys local_path  - destination  - id  - and
+# a type of [nfs|rsync|smb] (leave empty for slow native shares). See
+# https://github.com/geerlingguy/drupal-vm/wiki/Syncing-Folders for more info.
+vagrant_synced_folders:
+  # The first synced folder will be used for the default Drupal installation  - if
+  # build_from_makefile is true.
+  - local_path: ~/Sites/drupal
+    destination: /var/www
+    id: drupal
+    type: nfs
+    create: true
+
+# Memory and CPU to use for this VM.
+vagrant_memory: 4096
+vagrant_cpus: 2
+
+# Set this to false if you are using a different site deployment strategy and
+# would like to configure vagrant_synced_folders and apache_vhosts manually.
+build_from_makefile: false
+drush_makefile_path: /vagrant/drupal.make.yml
+
+# Set this to true if you want to build from github Checkpoint upstream.
+# The github_repo_name is the name of the new repo you created in Github prior to running vagrant.
+build_from_github: true
+github_repo_name: "xxx.git"
+
+# Settings for building a Drupal site from a makefile (if build_from_makefile
+# is true).
+drupal_major_version: 7
+drupal_core_path: "/var/www/drupal"
+drupal_domain: "local.drupal.dev"
+drupal_site_name: "Drupal 7"
+drupal_install_profile: standard
+
+drupal_enable_modules: 
+  - 'opin_core_bean'
+  - 'opin_core_chaos_tools'
+  - 'opin_core_context'
+  - 'opin_core_flag'
+  - 'opin_libraries'
+  - 'opin_core_rules'
+  - 'opin_core_testing'
+  - 'opin_toolbar'
+  - 'opin_core_variable'
+  - 'opin_core_views'  
+  # - 'opin_administration'
+  # - 'opin_calendar'
+  # - 'opin_authentication'
+  # - 'opin_date'
+  # - 'opin_development'
+  # - 'opin_email'  
+  # - 'opin_feeds'
+  # - 'opin_fields'
+  # - 'opin_file_image'
+  # - 'opin_forms'
+  # - 'opin_front_end_admin'
+  # - 'opin_front_admin_us'
+  # - 'opin_mapping'
+  # - 'opin_media'
+  # - 'opin_menu'
+  # - 'opin_migration'
+  # - 'opin_multilingual'
+  # - 'opin_reference'
+  # - 'opin_reports'
+  # - 'opin_search'
+  # - 'opin_security'
+  # - 'opin_seo'
+  # - 'opin_theming'
+  # - 'opin_user'
+  # - 'opin_workflow'
+  # - 'opin_wysiwyg'
+
+drupal_disable_modules: 
+  - 'toolbar'
+  - 'overlay'
+
+drupal_account_name: admin
+drupal_account_pass: admin
+drupal_mysql_user: root
+drupal_mysql_password: root
+drupal_mysql_database: drupal
+
+# Drupal VM automatically creates a drush alias file in your ~/.drush folder if
+# this variable is 'true'.
+configure_local_drush_aliases: true
+
+# Apache VirtualHosts. Add one for each site you are running inside the VM. For
+# multisite deployments, you can point multiple servernames at one documentroot.
+apache_listen_port: 8080
+apache_vhosts:
+  - {servername: "{{ drupal_domain }}", documentroot: "{{ drupal_core_path }}"}
+  - {servername: "local.xhprof.com", documentroot: "/usr/share/php/xhprof_html"}
+  - {servername: "local.pimpmylog.com", documentroot: "/usr/share/php/pimpmylog"}
+
+# MySQL Databases and users. If build_from_makefile is true  - first database will
+# be used for the makefile-built site.
+mysql_databases:
+  - name: "{{ drupal_mysql_database }}"
+    encoding: utf8
+    collation: utf8_general_ci
+
+mysql_users:
+  - name: "{{ drupal_mysql_user }}"
+    host: "%"
+    password: "{{ drupal_mysql_password }}"
+    priv: "{{ drupal_mysql_database }}.*:ALL"
+
+# Comment out any extra utilities you dont want to install.
+installed_extras:
+  - mailhog
+  - memcached
+  - varnish
+  - phpmyadmin
+  - pimpmylog
+  - solr
+  - xdebug
+  - xhprof
+
+# Add any extra apt packages youd like to install.
+extra_apt_packages: []
+
+# You can configure almost anything else on the server in the rest of this file.
+mysql_root_password: root
+drush_version: master
+drush_keep_updated: yes
+
+firewall_allowed_tcp_ports:
+  - "22"
+  - "25"
+  - "80"
+  - "443"
+  - "8025"
+  - "8080"
+  - "8443"
+  - "8983"
+  - "9000"
+
+# Varnish 4.x configuration
+# Control Key: 14bac2e6-1e34-4770-8078-974373b76c90
+varnish_use_default_vcl: false
+varnish_listen_port: 80
+varnish_storage: "malloc,256m"
+
+# PHP Configuration. Currently-supported versions: 5.5  - 5.6  - 7.0 (experimental).
+php_version: "5.5"
+php_memory_limit: "1024M"
+php_display_errors: "On"
+php_display_startup_errors: "On"
+php_realpath_cache_size: "1024K"
+php_sendmail_path: "/usr/sbin/ssmtp -t"
+
+# APC will be enabled for PHP < 5.5, OpCache for PHP 5.5+.
+php_apc_enabled_in_ini: true
+php_apc_shm_size: "128M"
+php_opcache_enabled_in_ini: true
+php_opcache_memory_consumption: "128"
+php_opcache_max_accelerated_files: 4096
+
+# MySQL Configuration.
+mysql_slow_query_log_enabled: yes
+mysql_slow_query_time: 2
+
+# Pimp my Log settings.
+pimpmylog_install_dir: /usr/share/php/pimpmylog
+pimpmylog_grant_all_privs: yes
+
+# Enable main XDebug components
+php_xdebug_version: 2.3.2
+php_xdebug_default_enable: 1
+php_xdebug_coverage_enable: 1
+php_xdebug_cli_enable: 1
+php_xdebug_module_path: /usr/lib64/php/modules
+php_xdebug_remote_enable: "true"
+php_xdebug_remote_connect_back: "true"
+php_xdebug_remote_host: localhost
+php_xdebug_remote_port: "9000"
+php_xdebug_remote_log: /tmp/xdebug.log
+php_xdebug_idekey: netbeans-xdebug
+php_xdebug_max_nesting_level: 500
+
+# Disable main XDebug components unless needed.
+# php_xdebug_default_enable: 0
+# php_xdebug_coverage_enable: 0
+
+# Solr Configuration (if enabled above).
+solr_version: "4.10.4"
+solr_xms: "64M"
+solr_xmx: "128M"

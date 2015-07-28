@@ -1,0 +1,30 @@
+---
+- name: Update apt cache if needed.
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: Get software for Python-based control.
+  apt: "name={{ item }} state=installed"
+  with_items:
+    - curl
+    - python-apt
+    - python-pycurl
+    - build-essential
+
+- name: Disable the firewall (since this is for local dev only).
+  service: name=ufw state=stopped
+
+- name: Install postfix so Drupal can send emails.
+  apt: name=postfix state=installed
+  
+- name: Add Bitbucket to known hosts.
+  known_hosts: path="/etc/ssh/ssh_known_hosts"
+               host="bitbucket.org"
+               key="bitbucket.org ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJelCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/IpL8Le3pSBne8+seeFVBoGqzHM9yXw=="
+
+- name: ensure github.com is a known host
+  lineinfile:
+    dest: /etc/ssh/ssh_known_hosts
+    create: yes
+    state: present
+    line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    regexp: "^github\\.com"
