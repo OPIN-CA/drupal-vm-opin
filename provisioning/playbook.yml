@@ -40,6 +40,8 @@
       when: build_from_makefile
     - include: tasks/github.yml
       when: build_from_github
+    - include: tasks/github-pull.yml
+      when: pull_from_github
     - include: tasks/drush-aliases.yml
     - include: tasks/extras.yml
     - include: tasks/varnish.yml

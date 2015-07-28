@@ -26,8 +26,9 @@ build_from_makefile: false
 drush_makefile_path: /vagrant/drupal.make.yml
 
 # Set this to true if you want to build from github Checkpoint upstream.
-# The github_repo_name is the name of the new repo you created in Github prior to running vagrant.
-build_from_github: true
+build_from_github: false
+# Set this to true if you want to pull a repo from github.
+pull_from_github: false
 github_repo_name: "xxx.git"
 
 # Settings for building a Drupal site from a makefile (if build_from_makefile
